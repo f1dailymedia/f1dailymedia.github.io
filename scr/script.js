@@ -6,7 +6,7 @@ const headerHTML = `
   <header>
     <div class="left-header">
       <img src="ill/logo-500x500.png" alt="Breach Place Logo" class="logo" onclick="location.href='index.html'">
-      <div class="countdown"></div>
+      <div class="countdown (to remove)"></div>
     </div>
     <nav>
       <ul>
@@ -78,7 +78,7 @@ function initCountdown() {
     const minutes = Math.floor((diff / (1000 * 60)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
 
-    countdownEl.textContent = `Next single in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    countdownEl.textContent = `New single in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
   }
 
   setInterval(updateCountdown, 1000);
