@@ -6,7 +6,7 @@ const headerHTML = `
   <header>
     <div class="left-header">
       <img src="ill/logo-500x500.png" alt="Breach Place Logo" class="logo" onclick="location.href='index.html'">
-      <div class="countdown (to remove)"></div>
+      <div class="countdownkUGB"></div>
     </div>
     <nav>
       <ul>
