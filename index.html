@@ -2,39 +2,331 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Home</title>
-  <link rel="icon" type="image/x-icon" href="ill/minilogo.png"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="ill/style.css">
-  <script defer src="scr/script.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>F1 Daily - Formula 1 News & Live Coverage</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: url('https://media.formula1.com/image/upload/t_16by9Centre/c_fit,w_1584/q_auto/v1740000000/fom-website/2025/Great%20Britain/WHAT%20TO%20WATCH%20FOR%20V1%20(3).webp') no-repeat center center fixed;
+      background-size: cover;
+      color: #f1f1f1;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: -1;
+    }
+
+    header {
+      background: #111;
+      padding: 20px 40px;
+      border-bottom: 3px solid #E10600;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-weight: 900;
+      font-size: 1.8rem;
+      color: #E10600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    nav {
+      position: relative;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    nav li {
+      position: relative;
+    }
+
+    nav a {
+      color: #ddd;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 6px 0;
+      display: inline-block;
+    }
+
+    nav a:hover {
+      color: #E10600;
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #1a1a1a;
+      padding: 12px 0;
+      border-top: 2px solid #E10600;
+      z-index: 1000;
+      min-width: 200px;
+    }
+
+    .submenu li {
+      padding: 6px 20px;
+    }
+
+    .submenu a {
+      font-size: 0.9rem;
+      color: #ccc;
+      display: block;
+    }
+
+    nav li:hover .submenu {
+      display: block;
+    }
+
+    nav .submenu a:hover {
+      color: #E10600;
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 24px;
+      flex-grow: 1;
+    }
+
+    .feed {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .card {
+      background: #181818;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 12px rgba(225, 16, 0, 0.3);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgba(225, 16, 0, 0.5);
+    }
+
+    .thumb {
+      width: 100%;
+      height: 160px;
+      overflow: hidden;
+      background-color: #000;
+      flex-shrink: 0;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .thumb img {
+      transform: scale(1.05);
+    }
+
+    .info {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-grow: 1;
+    }
+
+    .tag {
+      background: #E10600;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      width: fit-content;
+      letter-spacing: 0.5px;
+    }
+
+    .title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .desc {
+      font-size: 0.9rem;
+      color: #bbb;
+      line-height: 1.3;
+      flex-grow: 1;
+    }
+
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 24px 16px;
+      color: #888;
+      font-size: 0.85rem;
+      border-top: 3px solid #E10600;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 640px) {
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .submenu {
+        position: static;
+        background: #1a1a1a;
+        padding: 8px 0;
+        margin-top: 6px;
+        border-top: none;
+      }
+
+      nav li:hover .submenu {
+        display: block;
+      }
+    }
+  </style>
 </head>
-
 <body>
-  <!-- Loader -->
-  <div id="loader">
-    <img src="ill/logo-500x500.png" alt="Breach Place Logo" class="glitch-logo">
-  </div>
 
-  <!-- Shared header -->
-  <div id="header"></div>
+  <header>
+    <div class="nav-container">
+      <h1>F1 Daily</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Schedule</a>
+            <ul class="submenu">
+              <li><a href="#">2025</a></li>
+              <li><a href="#">2026</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Results</a>
+            <ul class="submenu">
+              <li><a href="#">Team Standing</a></li>
+              <li><a href="#">Driver Standing</a></li>
+              <li><a href="#">Grand Prix Results</a></li>
+            </ul>
+          </li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Live</a>
+            <ul class="submenu">
+              <li><a href="#">F1 Daily Radio Live</a></li>
+              <li><a href="#">F1 TV PRO Official Live</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Tools</a>
+            <ul class="submenu">
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Contact</a>
+            <ul class="submenu">
+              <li><a href="#">F1 Daily</a></li>
+              <li><a href="#">FIA</a></li>
+              <li><a href="#">F1 - FOM</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <!-- Unique content -->
-<div class="hero">
-  <div class="hero-content">
-    <h1>Breach Place</h1>
-    <button class="btn" onclick="location.href='breachplace.html'">Follow us</button>
-    <p>Scroll down!</p>
-  </div>
-</div>
+  <main>
+    <div class="feed">
+      <div class="card">
+        <div class="thumb">
+          <img src="https://media.formula1.com/image/upload/q_auto/f_auto/t_16by9Centre/v1740000000/fom-website/2025/Great%20Britain/WHAT%20TO%20WATCH%20FOR%20V1%20(3).webp" alt="Monaco GP">
+        </div>
+        <div class="info">
+          <span class="tag">Race</span>
+          <div class="title">Monaco GP 2025 - Race Highlights</div>
+          <div class="desc">Watch all the action from the streets of Monte Carlo in this thrilling 2025 Grand Prix summary.</div>
+        </div>
+      </div>
 
-<section id="about">
-  <h2>Who We Are</h2>
-  <p>We are Breach Place, a six-member nu metal band. Learn more about who we are by listening to our songs or exploring our wiki.</p>
-  <button class="btn" onclick="location.href='wiki.html'">Our Stories</button>
-</section>
+      <div class="card">
+        <div class="thumb">
+          <img src="https://media.formula1.com/image/upload/q_auto/f_auto/t_16by9Centre/v1740000000/fom-website/2025/Great%20Britain/WHAT%20TO%20WATCH%20FOR%20V1%20(3).webp" alt="Red Bull Analysis">
+        </div>
+        <div class="info">
+          <span class="tag">Tech</span>
+          <div class="title">Red Bull RB21 Deep Dive</div>
+          <div class="desc">A closer look at Red Bull's latest innovations and how it impacts performance this season.</div>
+        </div>
+      </div>
 
-  <!-- Shared footer -->
-  <div id="footer"></div>
+      <div class="card">
+        <div class="thumb">
+          <img src="https://media.formula1.com/image/upload/q_auto/f_auto/t_16by9Centre/v1740000000/fom-website/2025/Great%20Britain/WHAT%20TO%20WATCH%20FOR%20V1%20(3).webp" alt="Leclerc Interview">
+        </div>
+        <div class="info">
+          <span class="tag">Interview</span>
+          <div class="title">Charles Leclerc Speaks Out</div>
+          <div class="desc">Exclusive talk with the Ferrari driver on his 2025 campaign, challenges and goals ahead.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb">
+          <img src="https://media.formula1.com/image/upload/q_auto/f_auto/t_16by9Centre/v1740000000/fom-website/2025/Great%20Britain/WHAT%20TO%20WATCH%20FOR%20V1%20(3).webp" alt="Strategy">
+        </div>
+        <div class="info">
+          <span class="tag">Strategy</span>
+          <div class="title">Why Mercedes Changed Tire Strategy</div>
+          <div class="desc">Race engineers reveal the thinking behind Mercedes' split tire strategy in the last 3 races.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 F1 Daily – Independent Formula 1 Media Coverage
+  </footer>
+
 </body>
 </html>
