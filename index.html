@@ -15,26 +15,20 @@
 
     body {
       font-family: 'Roboto', sans-serif;
-      background: url('https://media.formula1.com/image/upload/t_16by9Centre/c_fit,w_1584/q_auto/v1740000000/fom-website/2025/Great%20Britain/WHAT%20TO%20WATCH%20FOR%20V1%20(3).webp') no-repeat center center fixed;
-      background-size: cover;
-      color: #f1f1f1;
+      background: #fff;
+      color: #111;
       line-height: 1.6;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: -1;
+      min-height: 100vh;
     }
 
     header {
       background: #111;
-      padding: 20px 40px;
+      padding: 16px 32px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
       border-bottom: 3px solid #E10600;
     }
 
@@ -43,206 +37,583 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     header h1 {
       font-weight: 900;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: #E10600;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-    }
-
-    nav {
-      position: relative;
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 28px;
-    }
-
-    nav li {
-      position: relative;
+      gap: 24px;
     }
 
     nav a {
-      color: #ddd;
+      color: #f1f1f1;
       text-decoration: none;
       font-weight: 700;
       font-size: 0.95rem;
-      padding: 6px 0;
-      display: inline-block;
     }
 
     nav a:hover {
       color: #E10600;
     }
 
-    .submenu {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: #1a1a1a;
-      padding: 12px 0;
-      border-top: 2px solid #E10600;
-      z-index: 1000;
-      min-width: 200px;
-    }
-
-    .submenu li {
-      padding: 6px 20px;
-    }
-
-    .submenu a {
-      font-size: 0.9rem;
-      color: #ccc;
-      display: block;
-    }
-
-    nav li:hover .submenu {
-      display: block;
-    }
-
-    nav .submenu a:hover {
-      color: #E10600;
-    }
-
     main {
       max-width: 1400px;
       margin: 40px auto;
-      padding: 0 24px;
+      padding: 0 20px;
       flex-grow: 1;
       display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    /* Section header container: text + button, left-aligned */
+    .section-header {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .coming-soon {
-      animation: fadeIn 2s ease-out;
-    }
-
-    .coming-soon h2 {
-      font-size: 3rem;
-      color: #E10600;
+      gap: 12px;
       margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
       text-transform: uppercase;
+      font-weight: 700;
+      color: #111;
+      margin: 0;
+      white-space: nowrap;
     }
 
-    .coming-soon p {
-      font-size: 1.5rem;
-      color: #f1f1f1;
+    .section-header a {
+      background: #E10600;
+      color: #fff;
+      text-decoration: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    /* GP row scroll container */
+    .gp-row-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 10px;
+      scroll-padding-left: calc((100% - 3 * 260px) / 2);
+    }
+
+    /* Scrollbar styling */
+    .gp-row-scroll::-webkit-scrollbar {
+      height: 10px;
+    }
+    .gp-row-scroll::-webkit-scrollbar-thumb {
+      background-color: #E10600;
+      border-radius: 5px;
+    }
+    .gp-row-scroll::-webkit-scrollbar-track {
+      background: #eee;
+    }
+
+    .gp-card {
+      scroll-snap-align: center;
+      flex: 0 0 260px;
+      background: #f8f8f8;
+      border-radius: 8px;
+      text-align: center;
+      padding: 0;
+      border: 2px solid #ddd;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .gp-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .gp-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .gp-card h3 {
+      font-size: 1.2rem;
+      color: #E10600;
+      margin: 12px 0 4px;
+    }
+
+    .gp-card p {
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .gp-card.current {
+      border-color: #E10600;
+      background-color: #ffe6e6;
+      font-weight: 700;
+    }
+
+    /* Useful Links Grid */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .link-card {
+      background: #f9f9f9;
+      padding: 0;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #ccc;
+      overflow: hidden;
+      min-height: 260px;
+    }
+
+    .link-card img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
+
+    .link-card p {
+      font-weight: bold;
+      font-size: 1rem;
+      margin: 12px 0 4px;
+      color: #111;
+    }
+
+    .link-card a {
+      display: block;
+      font-weight: bold;
+      color: #E10600;
+      font-size: 1.1rem;
+      margin: 12px 0 20px;
+      text-decoration: none;
+    }
+
+    /* Standings images keep 16:9 */
+    .full-img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      height: auto;
     }
 
     footer {
-      background: #111;
+      background: #f4f4f4;
       text-align: center;
       padding: 24px 16px;
-      color: #888;
-      font-size: 0.85rem;
-      border-top: 3px solid #E10600;
+      color: #666;
+      font-size: 0.9rem;
+      border-top: 2px solid #E10600;
       margin-top: 40px;
-    }
-
-    @media (max-width: 640px) {
-      .nav-container {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
-      nav ul {
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-
-      .submenu {
-        position: static;
-        background: #1a1a1a;
-        padding: 8px 0;
-        margin-top: 6px;
-        border-top: none;
-      }
-
-      nav li:hover .submenu {
-        display: block;
-      }
-
-      .coming-soon h2 {
-        font-size: 2.2rem;
-      }
-
-      .coming-soon p {
-        font-size: 1.1rem;
-      }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="nav-container">
-      <h1>F1 Daily Media</h1>
-      <nav>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Schedule</a>
-            <ul class="submenu">
-              <li><a href="#">2025</a></li>
-              <li><a href="#">2026</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Results</a>
-            <ul class="submenu">
-              <li><a href="#">Team Standing</a></li>
-              <li><a href="#">Driver Standing</a></li>
-              <li><a href="#">Grand Prix Results</a></li>
-            </ul>
-          </li>
-          <li><a href="#">News</a></li>
-          <li><a href="#">Live</a>
-            <ul class="submenu">
-              <li><a href="#">F1 Daily Media Radio Live</a></li>
-              <li><a href="#">F1 TV PRO Official Live</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Tools</a>
-            <ul class="submenu">
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Contact</a>
-            <ul class="submenu">
-              <li><a href="#">F1 Daily Media</a></li>
-              <li><a href="#">FIA</a></li>
-              <li><a href="#">F1 - FOM</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+<header>
+  <div class="nav-container">
+    <h1>F1 Daily Media</h1>
+    <nav>
+      <ul>
+        <li><a href="https://404.com/">Home</a></li>
+        <li><a href="https://404.com/">Schedule</a></li>
+        <li><a href="https://404.com/">Results</a></li>
+        <li><a href="https://404.com/">News</a></li>
+        <li><a href="https://404.com/">Live</a></li>
+        <li><a href="https://404.com/">Tools</a></li>
+        <li><a href="https://404.com/">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-  <main>
-    <div class="coming-soon">
-      <h2>Coming Soon</h2>
-      <p>Objectif 2026 – Stay Tuned for the Future of F1 Daily Media</p>
+<main>
+  <!-- Top Headlines (vide ici, à remplir si besoin) -->
+ <section>
+    <div class="section-header">
+      <h2>Useful Links</h2>
+      <a href="https://404.com/">More Tools</a>
     </div>
-  </main>
+    <div class="grid-4">
+      <div class="link-card">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Watch F1 Live on F1TV" />
+          <p>Watch F1 Live on F1TV</p>
+          <span>Launch F1TV</span>
+        </a>
+      </div>
+      <div class="link-card">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Official Partners" />
+          <p>FIA, FOM, Formula 1 Official Sites</p>
+          <span>Official Partners</span>
+        </a>
+      </div>
+      <div class="link-card">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Follow F1 Daily Media on socials" />
+          <p>Follow F1 Daily Media on socials</p>
+          <span>Follow Us</span>
+        </a>
+      </div>
+      <div class="link-card">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Join Our Team" />
+          <p>Join Our Team – We Are Hiring</p>
+          <span>Apply Now</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-  <footer>
-    &copy; 2025 F1 Daily Media – Independent Formula 1 Media Coverage
-  </footer>
+  <!-- Grand Prix Calendar Scroll -->
+  <section>
+    <div class="section-header">
+      <h2>Grand Prix</h2>
+      <a href="https://404.com/">See Full Calendar</a>
+    </div>
+    <div class="gp-row-scroll" tabindex="0" aria-label="Grand Prix calendar horizontal scroll">
+
+      <!-- Exemple 25 GP + Pre-Season Test -->
+      <div class="gp-card past">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Pre-Season Test" />
+        </a>
+        <h3>Pre-Season Test</h3>
+        <p>Feb 1-3 · Bahrain</p>
+      </div>
+
+      <!-- GP 1 -->
+      <div class="gp-card past">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Australian GP" />
+        </a>
+        <h3>🇦🇺 Australian GP</h3>
+        <p>March 6-8 · Melbourne</p>
+      </div>
+
+      <!-- GP 2 -->
+      <div class="gp-card past">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="China GP" />
+        </a>
+        <h3>🇨🇳 Chinese GP</h3>
+        <p>March 13-15 · Shanghai</p>
+      </div>
+
+      <!-- GP 3 -->
+      <div class="gp-card past">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Japan GP" />
+        </a>
+        <h3>🇯🇵 Japanese GP</h3>
+        <p>March 27-29 · Suzuka</p>
+      </div>
+
+      <!-- GP 4 -->
+      <div class="gp-card past">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Bahrain GP" />
+        </a>
+        <h3>🇧🇭 Bahrain GP</h3>
+        <p>April 10-12 · Sakhir</p>
+      </div>
+
+      <!-- GP 5 -->
+      <div class="gp-card past">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Saudi Arabia GP" />
+        </a>
+        <h3>🇸🇦 Saudi Arabia GP</h3>
+        <p>April 17-19 · Jeddah</p>
+      </div>
+
+      <!-- GP 6 -->
+      <div class="gp-card past">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="USA GP" />
+        </a>
+        <h3>🇺🇸 USA GP</h3>
+        <p>May 1-3 · Miami</p>
+      </div>
+
+      <!-- GP 7 -->
+      <div class="gp-card past">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Canada GP" />
+        </a>
+        <h3>🇨🇦 Canadian GP</h3>
+        <p>May 22-24 · Montreal</p>
+      </div>
+
+      <!-- GP 8 -->
+      <div class="gp-card past">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Monaco GP" />
+        </a>
+        <h3>🇲🇨 Monaco GP</h3>
+        <p>June 5-7 · Monte Carlo</p>
+      </div>
+
+      <!-- GP 9 -->
+      <div class="gp-card past">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Spain GP" />
+        </a>
+        <h3>🇪🇸 Spanish GP</h3>
+        <p>June 19-21 · Barcelona</p>
+      </div>
+
+      <!-- GP 10 -->
+      <div class="gp-card past">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Austria GP" />
+        </a>
+        <h3>🇦🇹 Austrian GP</h3>
+        <p>June 28-30 · Red Bull Ring</p>
+      </div>
+
+      <!-- GP 11 - current GP - next GP -->
+      <div class="gp-card current">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="British GP" />
+        </a>
+        <h3>🇬🇧 British GP</h3>
+        <p>July 5-7 · Silverstone</p>
+      </div>
+
+      <!-- GP 12 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Hungarian GP" />
+        </a>
+        <h3>🇭🇺 Hungarian GP</h3>
+        <p>July 19-21 · Hungaroring</p>
+      </div>
+
+      <!-- GP 13 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Belgium GP" />
+        </a>
+        <h3>🇧🇪 Belgian GP</h3>
+        <p>August 30-Sept 1 · Spa-Francorchamps</p>
+      </div>
+
+      <!-- GP 14 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Netherlands GP" />
+        </a>
+        <h3>🇳🇱 Dutch GP</h3>
+        <p>Sept 6-8 · Zandvoort</p>
+      </div>
+
+      <!-- GP 15 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Italy GP" />
+        </a>
+        <h3>🇮🇹 Italian GP</h3>
+        <p>Sept 13-15 · Monza</p>
+      </div>
+
+      <!-- GP 16 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Singapore GP" />
+        </a>
+        <h3>🇸🇬 Singapore GP</h3>
+        <p>Sept 20-22 · Marina Bay</p>
+      </div>
+
+      <!-- GP 17 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Japan GP" />
+        </a>
+        <h3>🇯🇵 Japanese GP</h3>
+        <p>Sept 27-29 · Suzuka</p>
+      </div>
+
+      <!-- GP 18 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="USA GP 2" />
+        </a>
+        <h3>🇺🇸 USA GP</h3>
+        <p>Oct 18-20 · Austin</p>
+      </div>
+
+      <!-- GP 19 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Mexico GP" />
+        </a>
+        <h3>🇲🇽 Mexican GP</h3>
+        <p>Oct 25-27 · Mexico City</p>
+      </div>
+
+      <!-- GP 20 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Brazil GP" />
+        </a>
+        <h3>🇧🇷 Brazilian GP</h3>
+        <p>Nov 1-3 · São Paulo</p>
+      </div>
+
+      <!-- GP 21 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Las Vegas GP" />
+        </a>
+        <h3>🇺🇸 Las Vegas GP</h3>
+        <p>Nov 22-24 · Las Vegas</p>
+      </div>
+
+      <!-- GP 22 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Abu Dhabi GP" />
+        </a>
+        <h3>🇦🇪 Abu Dhabi GP</h3>
+        <p>Dec 6-8 · Yas Marina</p>
+      </div>
+
+      <!-- GP 23 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="New GP 1" />
+        </a>
+        <h3>New GP 1</h3>
+        <p>Dec 13-15 · TBD</p>
+      </div>
+
+      <!-- GP 24 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="New GP 2" />
+        </a>
+        <h3>New GP 2</h3>
+        <p>Dec 20-22 · TBD</p>
+      </div>
+
+      <!-- GP 25 -->
+      <div class="gp-card future">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="New GP 3" />
+        </a>
+        <h3>New GP 3</h3>
+        <p>Dec 27-29 · TBD</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Useful Links -->
+  <section>
+    <div class="section-header">
+      <h2>Useful Links</h2>
+      <a href="https://404.com/">More Tools</a>
+    </div>
+    <div class="grid-4">
+      <div class="link-card">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Watch F1 Live on F1TV" />
+          <p>Watch F1 Live on F1TV</p>
+          <span>Launch F1TV</span>
+        </a>
+      </div>
+      <div class="link-card">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Official Partners" />
+          <p>FIA, FOM, Formula 1 Official Sites</p>
+          <span>Official Partners</span>
+        </a>
+      </div>
+      <div class="link-card">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Follow F1 Daily Media on socials" />
+          <p>Follow F1 Daily Media on socials</p>
+          <span>Follow Us</span>
+        </a>
+      </div>
+      <div class="link-card">
+        <a href="https://404.com/">
+          <img src="file:///home/isaac/T%C3%A9l%C3%A9chargements/GP.avif" alt="Join Our Team" />
+          <p>Join Our Team – We Are Hiring</p>
+          <span>Apply Now</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Driver Standings -->
+  <section>
+    <div class="section-header">
+      <h2>Driver Standings</h2>
+      <a href="https://404.com/">Full Standings</a>
+    </div>
+    <a href="https://404.com/">
+      <img class="full-img" src="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/fom-website/2025/Miscellaneous/2025-start-barcelona.webp" alt="Driver Standings" />
+    </a>
+  </section>
+
+  <!-- Constructor Standings -->
+  <section>
+    <div class="section-header">
+      <h2>Constructor Standings</h2>
+      <a href="https://404.com/">Full Standings</a>
+    </div>
+    <a href="https://404.com/">
+      <img class="full-img" src="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/fom-website/2025/Miscellaneous/2025-start-barcelona.webp" alt="Constructor Standings" />
+    </a>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2025 F1 Daily Media – Unofficial & Independent Formula 1 Coverage
+</footer>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.gp-row-scroll');
+    const currentCard = container.querySelector('.gp-card.current');
+    if (currentCard) {
+      const containerRect = container.getBoundingClientRect();
+      const cardRect = currentCard.getBoundingClientRect();
+      const scrollLeft = container.scrollLeft;
+      const offset = cardRect.left - containerRect.left + scrollLeft - (containerRect.width / 2) + (cardRect.width / 2);
+      container.scrollTo({ left: offset, behavior: 'smooth' });
+    }
+  });
+</script>
 
 </body>
 </html>
