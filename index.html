@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>F1 Daily - Formula 1 News & Live Coverage</title>
+  <title>F1 Daily Media - Formula 1 News & Live Coverage</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
@@ -115,82 +115,31 @@
       margin: 40px auto;
       padding: 0 24px;
       flex-grow: 1;
-    }
-
-    .feed {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-    }
-
-    .card {
-      background: #181818;
-      border-radius: 10px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
-      flex-direction: column;
-      box-shadow: 0 4px 12px rgba(225, 16, 0, 0.3);
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 24px rgba(225, 16, 0, 0.5);
+    .coming-soon {
+      animation: fadeIn 2s ease-out;
     }
 
-    .thumb {
-      width: 100%;
-      height: 160px;
-      overflow: hidden;
-      background-color: #000;
-      flex-shrink: 0;
-    }
-
-    .thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover .thumb img {
-      transform: scale(1.05);
-    }
-
-    .info {
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex-grow: 1;
-    }
-
-    .tag {
-      background: #E10600;
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 700;
+    .coming-soon h2 {
+      font-size: 3rem;
+      color: #E10600;
+      margin-bottom: 16px;
       text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 4px;
-      width: fit-content;
-      letter-spacing: 0.5px;
     }
 
-    .title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.2;
+    .coming-soon p {
+      font-size: 1.5rem;
+      color: #f1f1f1;
     }
 
-    .desc {
-      font-size: 0.9rem;
-      color: #bbb;
-      line-height: 1.3;
-      flex-grow: 1;
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     footer {
@@ -226,6 +175,14 @@
       nav li:hover .submenu {
         display: block;
       }
+
+      .coming-soon h2 {
+        font-size: 2.2rem;
+      }
+
+      .coming-soon p {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
@@ -233,7 +190,7 @@
 
   <header>
     <div class="nav-container">
-      <h1>F1 Daily</h1>
+      <h1>F1 Daily Media</h1>
       <nav>
         <ul>
           <li><a href="#">Home</a></li>
@@ -253,7 +210,7 @@
           <li><a href="#">News</a></li>
           <li><a href="#">Live</a>
             <ul class="submenu">
-              <li><a href="#">F1 Daily Radio Live</a></li>
+              <li><a href="#">F1 Daily Media Radio Live</a></li>
               <li><a href="#">F1 TV PRO Official Live</a></li>
             </ul>
           </li>
@@ -266,7 +223,7 @@
           </li>
           <li><a href="#">Contact</a>
             <ul class="submenu">
-              <li><a href="#">F1 Daily</a></li>
+              <li><a href="#">F1 Daily Media</a></li>
               <li><a href="#">FIA</a></li>
               <li><a href="#">F1 - FOM</a></li>
             </ul>
@@ -277,55 +234,14 @@
   </header>
 
   <main>
-    <div class="feed">
-      <div class="card">
-        <div class="thumb">
-          <img src="https://media.formula1.com/image/upload/q_auto/f_auto/t_16by9Centre/v1740000000/fom-website/2025/Great%20Britain/WHAT%20TO%20WATCH%20FOR%20V1%20(3).webp" alt="Monaco GP">
-        </div>
-        <div class="info">
-          <span class="tag">Race</span>
-          <div class="title">Monaco GP 2025 - Race Highlights</div>
-          <div class="desc">Watch all the action from the streets of Monte Carlo in this thrilling 2025 Grand Prix summary.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="thumb">
-          <img src="https://media.formula1.com/image/upload/q_auto/f_auto/t_16by9Centre/v1740000000/fom-website/2025/Great%20Britain/WHAT%20TO%20WATCH%20FOR%20V1%20(3).webp" alt="Red Bull Analysis">
-        </div>
-        <div class="info">
-          <span class="tag">Tech</span>
-          <div class="title">Red Bull RB21 Deep Dive</div>
-          <div class="desc">A closer look at Red Bull's latest innovations and how it impacts performance this season.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="thumb">
-          <img src="https://media.formula1.com/image/upload/q_auto/f_auto/t_16by9Centre/v1740000000/fom-website/2025/Great%20Britain/WHAT%20TO%20WATCH%20FOR%20V1%20(3).webp" alt="Leclerc Interview">
-        </div>
-        <div class="info">
-          <span class="tag">Interview</span>
-          <div class="title">Charles Leclerc Speaks Out</div>
-          <div class="desc">Exclusive talk with the Ferrari driver on his 2025 campaign, challenges and goals ahead.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="thumb">
-          <img src="https://media.formula1.com/image/upload/q_auto/f_auto/t_16by9Centre/v1740000000/fom-website/2025/Great%20Britain/WHAT%20TO%20WATCH%20FOR%20V1%20(3).webp" alt="Strategy">
-        </div>
-        <div class="info">
-          <span class="tag">Strategy</span>
-          <div class="title">Why Mercedes Changed Tire Strategy</div>
-          <div class="desc">Race engineers reveal the thinking behind Mercedes' split tire strategy in the last 3 races.</div>
-        </div>
-      </div>
+    <div class="coming-soon">
+      <h2>Coming Soon</h2>
+      <p>Objectif 2026 – Stay Tuned for the Future of F1 Daily Media</p>
     </div>
   </main>
 
   <footer>
-    &copy; 2025 F1 Daily – Independent Formula 1 Media Coverage
+    &copy; 2025 F1 Daily Media – Independent Formula 1 Media Coverage
   </footer>
 
 </body>
